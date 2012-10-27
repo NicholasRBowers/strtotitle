@@ -1,6 +1,7 @@
 PHP-Title-Case-Function
 =======================
 *Creating a flexible, semantic, and correct title case PHP function based on some developers' previous work.*
+
 --------------------------------------------------------------------------------------------
 
 **Original Authors:**
