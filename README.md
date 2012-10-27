@@ -18,6 +18,13 @@ Objective
 ---------
 To create a simple, elegant, flexible, semantic, and correct title case PHP function by building off of the works of others.
 
+Notes
+-----
+* I am currently drawing from two sources: Dunbar and Camen (noted above). Each respective function resides in it's own branch.
+* There is currently no function in the master branch.
+* I would like to clean up and optimize each of the source branches before assimilating styles, methods, and functionality to a master title case function.
+* If there are any other sources that you would like to have considered added to the project, tweet them at me [@NicholasRBowers](http://twitter.com/NicholasRBowers).
+
 Changelog
 ---------
 ***Recent changes***
