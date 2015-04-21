@@ -1,27 +1,35 @@
 <?php
 
-function titleCase($string) { // Converts $string into title case using multiple rules
+function titleCase($string) {
   // Remove no_parse content.
-    $string_array = preg_split("/(<no_parse>|<\/no_parse>)+/i",$string);
+    $string_array = preg_split("/(<no_parse>|<\/no_parse>)+/i", $string);
     $newString = '';
-    for ($k=0; $k<count($string_array); $k=$k+2) {
+    for ($k=0; $k < count($string_array); $k = $k + 2) {
       $string = $string_array[$k];
       // If the entire string is upper case, don't perform any title case on it.
         if ($string != strtoupper($string)) {
-          // TITLE CASE RULES:
-            // 1.) Uppercase the first char in every word.
-              $new = preg_replace("/(^|\s|\'|'|\"|-){1}([a-z]){1}/ie","''.stripslashes('\\1').''.stripslashes(strtoupper('\\2')).''", $string);
-            // 2.) Lower case words exempt from title case.
-              // Lowercase all articles, coordinate conjunctions ("and", "or", "nor"), and prepositions regardless of length, when they are other than the first or last word.
-              // Lowercase the "to" in an infinitive." - this rule is of course approximated since it is context sensitive.
-              $matches = array();
-              // Perform recursive matching on the following words.
-              preg_match_all("/(\sof|\sa|\san|\sthe|\sbut|\sor|\snot|\syet|\sat|\son|\sin|\sover|\sabove|\sunder|\sbelow|\sbehind|\snext\sto|\sbeside|\sby|\samoung|\sbetween|\sby|\still|\ssince|\sdurring|\sfor|\sthroughout|\sto|\sand){2}/i",$new ,$matches);
-              for ($i=0; $i<count($matches); $i++) {
-                for ($j=0; $j<count($matches[$i]); $j++) {
-                  $new = preg_replace("/(".$matches[$i][$j]."\s)/ise","''.strtolower('\\1').''",$new);
+
+            /*
+                TITLE CASE RULES:
+                1. Uppercase the first character in every word.
+            */
+            $new = preg_replace("/(^|\s|\'|'|\"|-){1}([a-z]){1}/ie", "''.stripslashes('\\1').''.stripslashes(strtoupper('\\2')).''", $string);
+
+            /*
+                2. Lower case words exempt from title case.
+                    a. Lowercase all articles, coordinate conjunctions ("and", "or", "nor"), and prepositions regardless of length, when they are other than the first or last word.
+                    b. Lowercase the "to" in an infinitive." - this rule is of course approximated since it is context sensitive.
+            */
+            $matches = array();
+
+            preg_match_all("/(\sof|\sa|\san|\sthe|\sbut|\sor|\snot|\syet|\sat|\son|\sin|\sover|\sabove|\sunder|\sbelow|\sbehind|\snext\sto|\sbeside|\sby|\samong|\sbetween|\sby|\still|\ssince|\sduring|\sfor|\sthroughout|\sto|\sand){2}/i", $new, $matches);
+
+            for ($i = 0; $i < count($matches); $i++) {
+                for ($j = 0; $j < count($matches[$i]); $j++) {
+                    $new = preg_replace("/(".$matches[$i][$j]."\s)/ise", "''.strtolower('\\1').''", $new);
                 }
-              }
+            }
+
             // 3.) Do not allow upper case apostrophes.
               $new = preg_replace("/(\w'S)/ie","''.strtolower('\\1').''",$new);
               $new = preg_replace("/(\w'\w)/ie","''.strtolower('\\1').''",$new);
@@ -50,4 +58,4 @@ function titleCase($string) { // Converts $string into title case using multiple
       $newString .= $string_array[$k];
     }
     return($newString);
-} ?>
+}
